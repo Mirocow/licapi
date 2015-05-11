@@ -6,10 +6,12 @@ var app = express();
 var md5 = require('MD5');
 var Sequelize = require('sequelize');
 
+app.set('view engine', 'jade');
+app.use(express.static('public'));
 
 var sequelize = new Sequelize('license', 'root', '884088',{
     'host' : 'localhost'
-    //,'logging': false
+    ,'logging': false
 });
 
 
@@ -48,6 +50,8 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
         var currentMachineHash = req.params["machineHash"];
         var currentTimestamp = Math.floor(Date.now() / 1000);
 
+        var responseHash = md5(code + currentMachineHash);
+
         License.findAll({
             where: {
                 code: code
@@ -72,16 +76,16 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                                 license_id: license.dataValues['id']
                             }
                         );
-                        res.json({"error_code": 2, "status": "success"});
+                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash});
                     }
                     else {
                         var lastIp = dbLaunch.dataValues["ip"];
                         var lastTime = parseInt(dbLaunch.dataValues["occured"]);
                         var machineHash = dbLaunch.dataValues["machine_hash"];
 
-                        if((lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test') //@todo Recheck
+                        if((lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test')
                         {
-                            res.json({"error": "Launched from another computer!", "error_code": 3, "status": "error"});
+                            res.json({"error": "Launched from another computer!", "error_code": 3, "status": "error", "response_hash": responseHash});
                         }
                         else {
                             dbLaunch.machine_hash = currentMachineHash;
@@ -89,13 +93,13 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                             dbLaunch.occured = currentTimestamp;
                             dbLaunch.save();
 
-                            res.json({"error_code": 2, "status": "success"});
+                            res.json({"error_code": 2, "status": "success", "response_hash": responseHash});
                         }
                     }
                 });
             }
             else {
-                res.json({"error": "Wrong license", "error_code": 1, "status": "error"});
+                res.json({"error": "Wrong license", "error_code": 1, "status": "error", "response_hash": responseHash});
             }
         });
     }
@@ -105,7 +109,11 @@ app.get('/api/ip', function(req,res){
     res.json({ip: req.ip});
 });
 
+app.get('/', function(req, res){
+    res.render('index');
+});
+
 /*Run the server.*/
-app.listen(3000,function(){
-    console.log("Working on port 3000");
+app.listen(80,function(){
+    console.log("Working on port 80");
 });
