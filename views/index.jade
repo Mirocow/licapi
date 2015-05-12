@@ -9,6 +9,7 @@ html(lang="en")
         link(href='/fw/bs/css/bootstrap.min.css', rel='stylesheet')
         link(href='/fw/style.css', rel='stylesheet')
         link(href='/fw/fa/css/font-awesome.min.css', rel='stylesheet')
+        link(href='favicon.ico',rel='shortcut icon',type='image/x-icon')
     body
         nav.navbar.navbar-default
             .container-fluid
@@ -98,7 +99,7 @@ html(lang="en")
                         a.btn.btn-info(href='/WhatsAppTool.exe',style='bottom: 4px;position: relative;')
                             span.glyphicon.glyphicon-save
                             |  Download free version
-            .row
+            .row(style='margin-bottom: 100px;')
                 .col-sm-12
                     h1.page-header#contact Contact
                     ul.list-group.contacts-list
@@ -113,5 +114,7 @@ html(lang="en")
 
 
 
-
+        .color-container
+            .container.text-center
+                h1.fa.fa-whatsapp.fa-4x(style='text-align:center;margin: 0;')
 
