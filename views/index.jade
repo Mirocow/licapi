@@ -8,6 +8,7 @@ html(lang="en")
             }
         link(href='/fw/bs/css/bootstrap.min.css', rel='stylesheet')
         link(href='/fw/style.css', rel='stylesheet')
+        link(href='/fw/fa/css/font-awesome.min.css', rel='stylesheet')
     body
         nav.navbar.navbar-default
             .container-fluid
@@ -17,11 +18,19 @@ html(lang="en")
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href='#') Brand
+                    a.navbar-brand(href='#')
+                        i.fa.fa-whatsapp
+                        |  WhatsAppTool
                 .collapse.navbar-collapse#bs-example-navbar-collapse-1
                     ul.nav.navbar-nav
                         li
-                            a(href='#') Link
+                            a(href='#modules') Modules
+                        li
+                            a(href='#bd') Buy
+                        li
+                            a(href='#bd') Download
+                        li
+                            a(href='#contact') Contact Me
         .color-container
             .container
                 h1 WhatsApp Tool
@@ -29,7 +38,7 @@ html(lang="en")
         .container
             .row
                 .col-sm-12
-                    h1.page-header Modules
+                    h1.page-header#modules Modules
                     .row
                         .col-sm-12
                             h2 Parser
@@ -67,5 +76,42 @@ html(lang="en")
                                 p Generate range of phone numbers and send them to parser module or to text file
                                 h3 Features
                                 ul
-                                    li Shuffle numbers to avoid
+                                    li Shuffle numbers to deflect WhatsApp attention away from you
+                                    li Instantly send generated numbers to parser module
+                                    li Save generated numbers to text file
+            .row
+                .col-sm-12
+                    h1.page-title#bd Buy & Download
+                    p Buy the license key and get access to full list of features
+                    p
+                        a(href='#contact') Contact me
+                        |  to buy the license key
+
+                    h3.text-center 230 USD / 210 EUR / 12 000 RUB
+
+                    p(style='margin-bottom: 30px;') Or download free test version of the program
+                    .col-sm-6.text-center
+                        a.btn-lg.btn-success(href='#contact')
+                            span.glyphicon.glyphicon-fire
+                            |  Buy full version
+                    .col-sm-6.text-center
+                        a.btn.btn-info(href='/WhatsAppTool.exe',style='bottom: 4px;position: relative;')
+                            span.glyphicon.glyphicon-save
+                            |  Download free version
+            .row
+                .col-sm-12
+                    h1.page-header#contact Contact
+                    ul.list-group.contacts-list
+                        li.list-group-item
+                            i.fa.fa-skype.fa-2x
+                            strong  slashman500
+                        li.list-group-item
+                            i.fa.fa-envelope-square.fa-2x
+                            a(href='mailto:andzhilin@gmail.com')
+                                strong  andzhilin@gmail.com
+
+
+
+
+
 

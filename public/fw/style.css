@@ -21,3 +21,15 @@
   margin-top: 0;
   color: #fff;
 }
+.contacts-list li i.fa-skype {
+  color: #008eb9;
+}
+.contacts-list li i.fa-envelope-square {
+  color: #960004;
+}
+.contacts-list li strong {
+  bottom: 4px;
+  left: 10px;
+  position: relative;
+  font-size: 14pt;
+}
