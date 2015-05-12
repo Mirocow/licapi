@@ -2,7 +2,7 @@ extends ./layout.jade
 block content
         .color-container
             .container
-                h1 WhatsApp Tool
+                h1 WhatsApp Tools
                 p A tool to parse WhatsApp hashes, to generate new or use existing WhatsApp and register a  or existing range of WhatsApp numbers
         .container
             .row
@@ -51,25 +51,34 @@ block content
             .row
                 .col-sm-12
                     h1.page-header#bd Buy & Download
-                    p Buy the license key and get access to full list of features
-                    p
-                        a(href='#contact') Contact me
-                        |  to buy the license key
 
-                    h3.text-center 230 USD / 210 EUR / 12 000 RUB
-
-                    p(style='margin-bottom: 30px;') Or download free test version of the program
                     .col-sm-6.text-center
-                        a.btn-lg.btn-success(href='#contact')
+                        p Buy the license key and get access to full list of features
+                            p
+                                a(href='#contact') Contact me
+                                |  to buy the license key
+                                h3.text-center 230 USD / 210 EUR / 12 000 RUB
+                        a.btn.btn-lg.btn-success(href='mailto:andzhilin@gmail.com')
                             span.glyphicon.glyphicon-fire
                             |  Buy full version
                     .col-sm-6.text-center
-                        a.btn.btn-info(href='/WhatsAppTool.exe',style='bottom: 4px;position: relative;')
+                        p(style='margin-bottom: 30px;') You can also download
+                            strong  free
+                            |  test version of the program, which can handle up to 10 phone numbers at time
+                        a.btn.btn-info(href='/WhatsAppTools.exe',style='top: 45px;position: relative;')
                             span.glyphicon.glyphicon-save
                             |  Download free version
             .row(style='margin-bottom: 100px;')
                 .col-sm-12
                     h1.page-header#contact Contact
+                    p Feel free to conact me and ask any question about the WhatsApp Tools
+                    p I can show you all the benefits of the
+                        strong  WhatsApp Tools
+                        |  by sharing my screen with you via
+                        strong  TeamViewer
+                        |  or
+                        strong  Skype
+                        | .
                     ul.list-group.contacts-list
                         li.list-group-item
                             i.fa.fa-skype.fa-2x
