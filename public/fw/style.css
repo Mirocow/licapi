@@ -33,3 +33,23 @@
   position: relative;
   font-size: 14pt;
 }
+html,
+body,
+#wrap {
+  height: 100%;
+}
+body > #wrap {
+  height: auto;
+  min-height: 100%;
+}
+#main {
+  padding-bottom: 216px;
+}
+/* отступ должен быть равен высоте футера */
+#footer {
+  position: relative;
+  margin-top: -216px;
+  /* отрицательное значение высоты футера */
+  height: 216px;
+  clear: both;
+}

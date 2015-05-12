@@ -39,3 +39,15 @@
     }
   }
 }
+@footer-height: 216px;
+html, body, #wrap {height: 100%;}
+
+body > #wrap {height: auto; min-height: 100%;}
+
+#main {padding-bottom: @footer-height;}  /* отступ должен быть равен высоте футера */
+
+#footer {position: relative;
+  margin-top: -@footer-height; /* отрицательное значение высоты футера */
+  height: @footer-height;
+  clear:both;
+}

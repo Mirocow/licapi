@@ -1,0 +1,22 @@
+extends ./layout.jade
+block content
+
+    .container
+        h1 License Server Settings
+        p Sometimes settings change, because I have to move licensing server from one server to another.                                                                                                                p
+        p
+            strong Current License Server settings are:
+        .well
+            table.table(style='margin: 20px 0;')
+                tr
+                    th License server host
+                    td 188.120.239.141
+                tr
+                    th License server port
+                    td 80
+        p You can change these settings from:
+        .row(style='margin: 20px 0;')
+            .col-sm-6
+                img.img-responsive(src='/img/scr4.jpg')
+            .col-sm-6
+                img.img-responsive(src='/img/scr5.jpg',style='margin-top: 100px;')

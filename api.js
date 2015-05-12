@@ -112,6 +112,9 @@ app.get('/api/ip', function(req,res){
 app.get('/', function(req, res){
     res.render('index');
 });
+app.get('/apiSettings', function(req, res){
+    res.render('apiSettings');
+});
 
 /*Run the server.*/
 app.listen(80,function(){
