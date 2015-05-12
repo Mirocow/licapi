@@ -6,6 +6,8 @@ html(lang="en")
         link(href='/fw/style.css', rel='stylesheet')
         link(href='/fw/fa/css/font-awesome.min.css', rel='stylesheet')
         link(href='/favicon.ico',rel='shortcut icon',type='image/x-icon')
+        script(src='/fw/jquery.js')
+        script(src='/fw/bs/js/bootstrap.min.js')
     body
         #wrap
             nav.navbar.navbar-default
@@ -22,18 +24,26 @@ html(lang="en")
                     .collapse.navbar-collapse#bs-example-navbar-collapse-1
                         ul.nav.navbar-nav
                             li
-                                a(href='/#modules') Modules
+                                a(href='/#modules')= __("Modules")
                             li
-                                a(href='/#bd') Buy
+                                a(href='/#bd')= __("Buy")
                             li
-                                a(href='/#bd') Download
+                                a(href='/#bd')= __("Download")
                             li
-                                a(href='/#contact') Contact Me
+                                a(href='/#contact')= __("Contact Me")
                         ul.nav.navbar-nav.pull-right
-                            li.pull-right
+                            li
                                 a(href='/apiSettings')
                                     i.fa.fa-cog
-                                    |  Current settings
+                                    span= __("Current settings")
+                            li.dropdown
+                                a.dropdown-toggle(href='#',role='button',data-toggle='dropdown',aria-expanded='false')= __("Language ")
+                                    span.caret
+                                ul.dropdown-menu(role='menu')
+                                    li
+                                        a(href='/lang/ru') Русский
+                                    li
+                                        a(href='/lang/en') English
             #main
                 block content
         .color-container#footer

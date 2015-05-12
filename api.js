@@ -3,11 +3,22 @@
  */
 var express = require('express');
 var app = express();
+var i18n = require('i18n');
 var md5 = require('MD5');
 var Sequelize = require('sequelize');
+var cookieParser = require('cookie-parser');
+
+i18n.configure({
+    locales: ['en', 'ru'],
+    cookie: 'locale',
+    directory: __dirname + '/locales'
+});
 
 app.set('view engine', 'jade');
 app.use(express.static('public'));
+app.use(cookieParser());
+app.use(i18n.init);
+
 
 var sequelize = new Sequelize('license', 'root', '884088',{
     'host' : 'localhost'
@@ -114,6 +125,11 @@ app.get('/', function(req, res){
 });
 app.get('/apiSettings', function(req, res){
     res.render('apiSettings');
+});
+
+app.get('/lang/:locale', function(req, res){
+    res.cookie('locale', req.params.locale);
+    res.redirect('/');
 });
 
 /*Run the server.*/

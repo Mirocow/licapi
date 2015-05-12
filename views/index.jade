@@ -3,80 +3,80 @@ block content
         .color-container
             .container
                 h1 WhatsApp Tools
-                p A tool to parse WhatsApp hashes, to generate new or use existing WhatsApp and register a  or existing range of WhatsApp numbers
+                p= __("A tool to parse WhatsApp hashes, to generate new or use existing WhatsApp and register a  or existing range of WhatsApp numbers")
         .container
             .row
                 .col-sm-12
-                    h1.page-header#modules Modules
+                    h1.page-header#modules= __("Modules")
                     .row
                         .col-sm-12
-                            h2 Parser
+                            h2= __("Parser")
                             .col-sm-6
                                 img.img-responsive(src='/img/scr1.jpg')
                             .col-sm-6
-                                p Import phone numbers from a .txt file or generate them and check wether they were already registered with empty or specified password
-                                h3 Features
+                                p= __("Import phone numbers from a .txt file or generate them and check wether they were already registered with empty or specified password")
+                                h3= __("Features")
                                 ul
-                                    li Ultra-fast multi-threaded parallel parsing
-                                    li Ability to parse numbers registered with a password
-                                    li Multiple API versions implemented. You can use the newest, oldest one or both of them
-                                    li Ability to set a pause in order to avoid WhatsApp filtration
-                                    li Export parsed numbers to CSV or TXT files, including parsed hashes
+                                    li= __("Ultra-fast multi-threaded parallel parsing")
+                                    li= __("Ability to parse numbers registered with a password")
+                                    li= __("Multiple API versions implemented. You can use the newest, oldest one or both of them")
+                                    li= __("Ability to set a pause in order to avoid WhatsApp filtration")
+                                    li= __("Export parsed numbers to CSV or TXT files, including parsed hashes")
                     .row
                         .col-sm-12
-                            h2 Registration
+                            h2= __("Registration")
                             .col-sm-6
                                 img.img-responsive(src='/img/scr2.jpg')
                             .col-sm-6
-                                p Send verification SMS messages to all of the imported phone numbers and check recieved verification codes to get the hashes
-                                h3 Features
+                                p= __("Send verification SMS messages to all of the imported phone numbers and check recieved verification codes to get the hashes")
+                                h3= __("Features")
                                 ul
-                                    li Batch verfification SMS sent
-                                    li Batch verification codes submit
-                                    li Ability to set a pause in order to avoid WhatsApp filtration
-                                    li Ability to register numbers with a password
-                                    li Instantly get hashes for numbers which verification codes were already submitted
+                                    li= __("Batch verfification SMS sent")
+                                    li= __("Batch verification codes submit")
+                                    li= __("Ability to set a pause in order to avoid WhatsApp filtration")
+                                    li= __("Ability to register numbers with a password")
+                                    li= __("Instantly get hashes for numbers which verification codes were already submitted")
                     .row
                         .col-sm-12
-                            h2 Generator
+                            h2= __("Generator")
                             .col-sm-6
                                 img.img-responsive(src='/img/scr3.jpg')
                             .col-sm-6
-                                p Generate range of phone numbers and send them to parser module or to text file
-                                h3 Features
+                                p= __("Generate range of phone numbers and send them to parser module or to text file")
+                                h3= __("Features")
                                 ul
-                                    li Shuffle numbers to deflect WhatsApp attention away from you
-                                    li Instantly send generated numbers to parser module
-                                    li Save generated numbers to text file
+                                    li= __("Shuffle numbers to deflect WhatsApp attention away from you")
+                                    li= __("Instantly send generated numbers to parser module")
+                                    li= __("Save generated numbers to text file")
             .row
                 .col-sm-12
-                    h1.page-header#bd Buy & Download
+                    h1.page-header#bd= __("Buy & Download")
 
                     .col-sm-6.text-center
-                        p Buy the license key and get access to full list of features
+                        p= __("Buy the license key and get access to full list of features")
                             p
-                                a(href='#contact') Contact me
-                                |  to buy the license key
+                                a(href='#contact')= __("Contact me")
+                                span= __(" to buy the license key")
                                 h3.text-center 230 USD / 210 EUR / 12 000 RUB
                         a.btn.btn-lg.btn-success(href='mailto:andzhilin@gmail.com')
                             span.glyphicon.glyphicon-fire
-                            |  Buy full version
+                            span= __(" Buy full version")
                     .col-sm-6.text-center
-                        p(style='margin-bottom: 30px;') You can also download
-                            strong  free
-                            |  test version of the program, which can handle up to 10 phone numbers at time
+                        p(style='margin-bottom: 30px;')= __("You can also download")
+                            strong= __(" free")
+                            span= __("test version of the program, which can handle up to 10 phone numbers at time")
                         a.btn.btn-info(href='/WhatsAppTools.exe',style='top: 45px;position: relative;')
                             span.glyphicon.glyphicon-save
-                            |  Download free version
+                            span= __(" Download free version")
             .row(style='margin-bottom: 100px;')
                 .col-sm-12
-                    h1.page-header#contact Contact
-                    p Feel free to conact me and ask any question about the WhatsApp Tools
-                    p I can show you all the benefits of the
+                    h1.page-header#contact= __("Contact")
+                    p= __("Feel free to conact me and ask any question about the WhatsApp Tools")
+                    p= __("I can show you all the benefits of the")
                         strong  WhatsApp Tools
-                        |  by sharing my screen with you via
+                        span= __(" by sharing my screen with you via")
                         strong  TeamViewer
-                        |  or
+                        span= __(" or")
                         strong  Skype
                         | .
                     ul.list-group.contacts-list

@@ -2,10 +2,10 @@ extends ./layout.jade
 block content
 
     .container
-        h1 License Server Settings
-        p Sometimes settings change, because I have to move licensing server from one server to another.                                                                                                                p
+        h1= __("License Server Settings")
+        p= __("Sometimes settings change, because I have to move licensing server from one server to another.")
         p
-            strong Current License Server settings are:
+            strong= __("Current License Server settings are:")
         .well
             table.table(style='margin: 20px 0;')
                 tr
@@ -14,7 +14,7 @@ block content
                 tr
                     th License server port
                     td 80
-        p You can change these settings from:
+        p= __("You can change these settings from:")
         .row(style='margin: 20px 0;')
             .col-sm-6
                 img.img-responsive(src='/img/scr4.jpg')
