@@ -94,7 +94,7 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                         var lastTime = parseInt(dbLaunch.dataValues["occured"]);
                         var machineHash = dbLaunch.dataValues["machine_hash"];
 
-                        if((lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test')
+                        if(false && (lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test')
                         {
                             res.json({"error": "Launched from another computer!", "error_code": 3, "status": "error", "response_hash": responseHash});
                         }
