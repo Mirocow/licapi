@@ -22,7 +22,7 @@ app.use(i18n.init);
 
 var sequelize = new Sequelize('license', 'root', '884088',{
     'host' : 'localhost'
-    ,'logging': false
+    //,'logging': false
 });
 
 
@@ -30,7 +30,8 @@ var License = sequelize.define('License', {
     id: {type: Sequelize.INTEGER, primaryKey: true },
     user: Sequelize.TEXT,
     code: Sequelize.TEXT,
-    one_ip: Sequelize.INTEGER
+    one_ip: Sequelize.INTEGER,
+    expires: Sequelize.DATE
 },{
     timestamps: false,
     tableName: 'license'
@@ -60,18 +61,27 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
         var remoteIp = req.ip;
         var currentMachineHash = req.params["machineHash"];
         var currentTimestamp = Math.floor(Date.now() / 1000);
-
         var responseHash = md5(code + currentMachineHash);
 
-        License.findAll({
+        License.find({
             where: {
-                code: code
+                code: code,
+                $or: [
+                    {
+                        expires: {
+                            $gt: getMysqlDate()
+                        }
+                    },
+                    {
+                        expires: {
+                            $eq: null
+                        }
+                    }
+                ]
             }
-        }).then(function(licenses){
-            if(licenses.length == 1)
+        }).then(function(license){
+            if(license)
             {
-                var license = licenses[0];
-
                 Launch.find({
                     where: {
                         license_id: license.dataValues['id']
@@ -87,7 +97,7 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                                 license_id: license.dataValues['id']
                             }
                         );
-                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash});
+                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash, "expires": license.dataValues['expires']});
                     }
                     else {
                         var lastIp = dbLaunch.dataValues["ip"];
@@ -96,7 +106,13 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
 
                         if(false && (lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test')
                         {
-                            res.json({"error": "Launched from another computer!", "error_code": 3, "status": "error", "response_hash": responseHash});
+                            res.json({
+                                "error": "Launched from another computer!",
+                                "error_code": 3,
+                                "status": "error",
+                                "response_hash": responseHash,
+                                "expires": license.dataValues['expires']
+                            });
                         }
                         else {
                             dbLaunch.machine_hash = currentMachineHash;
@@ -104,13 +120,23 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                             dbLaunch.occured = currentTimestamp;
                             dbLaunch.save();
 
-                            res.json({"error_code": 2, "status": "success", "response_hash": responseHash});
+                            res.json({
+                                "error_code": 2,
+                                "status": "success",
+                                "response_hash": responseHash,
+                                "expires": license.dataValues['expires']
+                            });
                         }
                     }
                 });
             }
             else {
-                res.json({"error": "Wrong license", "error_code": 1, "status": "error", "response_hash": responseHash});
+                res.json({
+                    "error": "Wrong license",
+                    "error_code": 1,
+                    "status": "error",
+                    "response_hash": responseHash
+                });
             }
         });
     }
@@ -136,3 +162,18 @@ app.get('/lang/:locale', function(req, res){
 app.listen(80,function(){
     console.log("Working on port 80");
 });
+
+
+function getMysqlDate() {
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1;
+    var curr_year = d.getFullYear();
+
+    if(curr_date < 10)
+        curr_date = "0" + curr_date.toString();
+    if(curr_month < 10)
+        curr_month = "0" + curr_month.toString();
+
+    return curr_year + "-" + curr_month + "-" + curr_date;
+}
