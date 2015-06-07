@@ -72,6 +72,7 @@ var Channel = sequelize.define('Channel', {
 License.hasOne(Launch, {foreignKey: 'license_id', timestamps: false});
 
 app.post('/api/launch/:code/:machineHash',handleLaunch);
+app.get('/api/launch/:code/:machineHash',handleLaunch);
 
 app.get('/api/ip', function(req,res){
     res.json({ip: req.ip});
