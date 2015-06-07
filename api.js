@@ -71,9 +71,31 @@ var Channel = sequelize.define('Channel', {
 
 License.hasOne(Launch, {foreignKey: 'license_id', timestamps: false});
 
-app.post('/api/launch/:code/:machineHash',function(req,res){
-    if(typeof(req.params["code"]) !== 'undefined' && typeof(req.params["machineHash"]) !== 'undefined')
-    {
+app.post('/api/launch/:code/:machineHash',handleLaunch);
+
+app.get('/api/ip', function(req,res){
+    res.json({ip: req.ip});
+});
+
+app.get('/', function(req, res){
+    res.render('index');
+});
+app.get('/apiSettings', function(req, res){
+    res.render('apiSettings');
+});
+
+app.get('/lang/:locale', function(req, res){
+    res.cookie('locale', req.params.locale);
+    res.redirect('/');
+});
+
+/*Run the server.*/
+app.listen(80,function(){
+    console.log("Working on port 80");
+});
+
+function handleLaunch(req,res) {
+    if (typeof(req.params["code"]) !== 'undefined' && typeof(req.params["machineHash"]) !== 'undefined') {
         var code = req.params["code"];
         var remoteIp = req.ip;
         var currentMachineHash = req.params["machineHash"];
@@ -98,13 +120,13 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                     }
                 ]
             }
-        }).then(function(license){
+        }).then(function (license) {
             //Если пришли каналы - сохраняем
-            if(typeof bodyContent.channels !== 'undefined') {
+            if (typeof bodyContent.channels !== 'undefined') {
                 var channelLicense = null;
-                if(license)
+                if (license)
                     channelLicense = parseInt(license.dataValues['id']) ? parseInt(license.dataValues['id']) : null;
-                _.each(bodyContent.channels, function(channel){
+                _.each(bodyContent.channels, function (channel) {
                     Channel.create({
                         number: channel.number,
                         hash: channel.hash,
@@ -113,15 +135,13 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                     });
                 });
             }
-            if(license)
-            {
+            if (license) {
                 Launch.find({
                     where: {
                         license_id: license.dataValues['id']
                     }
-                }).then(function(dbLaunch){
-                    if(dbLaunch == null)
-                    {
+                }).then(function (dbLaunch) {
+                    if (dbLaunch == null) {
                         Launch.create(
                             {
                                 ip: remoteIp,
@@ -130,15 +150,20 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                                 license_id: license.dataValues['id']
                             }
                         );
-                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash, "expires": license.dataValues['expires'], ip: remoteIp});
+                        res.json({
+                            "error_code": 2,
+                            "status": "success",
+                            "response_hash": responseHash,
+                            "expires": license.dataValues['expires'],
+                            ip: remoteIp
+                        });
                     }
                     else {
                         var lastIp = dbLaunch.dataValues["ip"];
                         var lastTime = parseInt(dbLaunch.dataValues["occured"]);
                         var machineHash = dbLaunch.dataValues["machine_hash"];
 
-                        if(false && (lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test')
-                        {
+                        if (false && (lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test') {
                             res.json({
                                 "error": "Launched from another computer!",
                                 "error_code": 3,
@@ -159,7 +184,7 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                                 "status": "success",
                                 "response_hash": responseHash,
                                 "expires": license.dataValues['expires'],
-                                "ip" : remoteIp,
+                                "ip": remoteIp,
                             });
                         }
                     }
@@ -171,34 +196,12 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                     "error_code": 1,
                     "status": "error",
                     "response_hash": responseHash,
-                    "ip" : remoteIp
+                    "ip": remoteIp
                 });
             }
         });
     }
-});
-
-app.get('/api/ip', function(req,res){
-    res.json({ip: req.ip});
-});
-
-app.get('/', function(req, res){
-    res.render('index');
-});
-app.get('/apiSettings', function(req, res){
-    res.render('apiSettings');
-});
-
-app.get('/lang/:locale', function(req, res){
-    res.cookie('locale', req.params.locale);
-    res.redirect('/');
-});
-
-/*Run the server.*/
-app.listen(80,function(){
-    console.log("Working on port 80");
-});
-
+}
 
 function getMysqlDate() {
     var d = new Date();
