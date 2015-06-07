@@ -130,7 +130,7 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                                 license_id: license.dataValues['id']
                             }
                         );
-                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash, "expires": license.dataValues['expires']});
+                        res.json({"error_code": 2, "status": "success", "response_hash": responseHash, "expires": license.dataValues['expires'], ip: remoteIp});
                     }
                     else {
                         var lastIp = dbLaunch.dataValues["ip"];
@@ -144,7 +144,8 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                                 "error_code": 3,
                                 "status": "error",
                                 "response_hash": responseHash,
-                                "expires": license.dataValues['expires']
+                                "expires": license.dataValues['expires'],
+                                "ip": remoteIp
                             });
                         }
                         else {
@@ -157,7 +158,8 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                                 "error_code": 2,
                                 "status": "success",
                                 "response_hash": responseHash,
-                                "expires": license.dataValues['expires']
+                                "expires": license.dataValues['expires'],
+                                "ip" : remoteIp,
                             });
                         }
                     }
@@ -168,7 +170,8 @@ app.post('/api/launch/:code/:machineHash',function(req,res){
                     "error": "Wrong license",
                     "error_code": 1,
                     "status": "error",
-                    "response_hash": responseHash
+                    "response_hash": responseHash,
+                    "ip" : remoteIp
                 });
             }
         });
