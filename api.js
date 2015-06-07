@@ -7,6 +7,8 @@ var i18n = require('i18n');
 var md5 = require('MD5');
 var Sequelize = require('sequelize');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var _ = require('underscore');
 
 i18n.configure({
     locales: ['en', 'ru'],
@@ -14,6 +16,7 @@ i18n.configure({
     directory: __dirname + '/locales'
 });
 
+app.use( bodyParser.json() );
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 app.use(cookieParser());
@@ -51,10 +54,24 @@ var Launch = sequelize.define('Launch', {
     timestamps: false,
     tableName: 'launch'
 });
+var Channel = sequelize.define('Channel', {
+    id: {type: Sequelize.INTEGER, primaryKey: true },
+    number: Sequelize.STRING(45),
+    hash: Sequelize.STRING(45),
+    created: Sequelize.STRING(45),
+    license_id: {
+        type: Sequelize.INTEGER,
+        references: License,
+        referencesKey: "id"
+    }
+},{
+    timestamps: false,
+    tableName: 'channel'
+});
 
 License.hasOne(Launch, {foreignKey: 'license_id', timestamps: false});
 
-app.get('/api/launch/:code/:machineHash',function(req,res){
+app.post('/api/launch/:code/:machineHash',function(req,res){
     if(typeof(req.params["code"]) !== 'undefined' && typeof(req.params["machineHash"]) !== 'undefined')
     {
         var code = req.params["code"];
@@ -62,6 +79,8 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
         var currentMachineHash = req.params["machineHash"];
         var currentTimestamp = Math.floor(Date.now() / 1000);
         var responseHash = md5(code + currentMachineHash);
+
+        var bodyContent = req.body;
 
         License.find({
             where: {
@@ -80,6 +99,20 @@ app.get('/api/launch/:code/:machineHash',function(req,res){
                 ]
             }
         }).then(function(license){
+            //Если пришли каналы - сохраняем
+            if(typeof bodyContent.channels !== 'undefined') {
+                var channelLicense = null;
+                if(license)
+                    channelLicense = parseInt(license.dataValues['id']) ? parseInt(license.dataValues['id']) : null;
+                _.each(bodyContent.channels, function(channel){
+                    Channel.create({
+                        number: channel.number,
+                        hash: channel.hash,
+                        license_id: channelLicense,
+                        created: currentTimestamp
+                    });
+                });
+            }
             if(license)
             {
                 Launch.find({
