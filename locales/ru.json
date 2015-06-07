@@ -36,11 +36,19 @@
 	"test version of the program, which can handle up to 10 phone numbers at time": "тестовую версию программы, которая поддерживает обработку максимум 10 номеров",
 	" Download free version": " Скачать бесплатную версию",
 	"Contact": "Связаться со мной",
-	"Feel free to conact me and ask any question about the WhatsApp Tools": "Задавайте вопросы любого характера, имеющие отношение к моей программе WhatsApp Tools, рассматриваю сотрудничество",
+	"Feel free to conact me and ask any question about the WhatsAppTools": "Задавайте вопросы любого характера, имеющие отношение к моей программе WhatsAppTools, рассматриваю сотрудничество",
 	"I can show you all the benefits of the": "По вашей просьбе я могу бесплатно продемонстрировать вам работу программы",
 	" by sharing my screen with you via": ", предоставив вам доступ к моему рабочему столу через ",
 	" or": " или",
 	"Current settings": "Текущие настройки",
 	"Contact Me": "Свяжитесь со мной",
-    "Language ":"Язык "
+    "Language ":"Язык ",
+    "Whats new in 1.5?": "Что нового в версии 1.5?",
+    "A lot of bugs & crashes fixed": "Исправлено много багов и вылетов",
+    "The code was optimised for high perfomance": "Код был оптимизирован для повышения производительности",
+    "WhatsApp server interaction was optimised too!": "Взаимодействие с серверами WhatsApp было также оптимизировано",
+    "Now, you will be able to receive notifications about the new version of the WhatsAppTools!": "Добавлена возможность получать уведомления об обновлениях!",
+    "New pretty icons set": "Новый набор иконок",
+    "Enhanced design": "Улучшенный дизайн",
+    "NEW VERSION!": "НОВАЯ ВЕРСИЯ!"
 }

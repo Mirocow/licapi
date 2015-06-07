@@ -2,11 +2,23 @@ extends ./layout.jade
 block content
         .color-container
             .container
-                h1 WhatsApp Tools V 1.5
+                h1 WhatsAppTools 1.5
                 p= __("A tool to parse WhatsApp hashes, to generate new or use existing WhatsApp and register a  or existing range of WhatsApp numbers")
         .container
 
         .container
+            .row(style='margin-top: 20px')
+                .h1.page-header= __("Whats new in version 1.5?")
+                .col-md-12
+                    div.alert.alert-danger= __("NEW VERSION!")
+                    ul.list-group
+                        li.list-group-item= __("A lot of bugs & crashes fixed")
+                        li.list-group-item= __("The code was optimised for high perfomance")
+                        li.list-group-item= __("WhatsApp server interaction was optimised too!")
+                        li.list-group-item= __("Now, you will be able to receive notifications about the new version of the WhatsAppTools!")
+                        li.list-group-item= __("New pretty icons set")
+                        li.list-group-item= __("Enhanced design")
+
             .row(style='margin-top: 20px')
                 .h1.page-header Video demonstration
                 .col-sm-4.col-sm-offset-4
@@ -79,9 +91,9 @@ block content
             .row(style='margin-bottom: 100px;')
                 .col-sm-12
                     h1.page-header#contact= __("Contact")
-                    p= __("Feel free to conact me and ask any question about the WhatsApp Tools")
+                    p= __("Feel free to conact me and ask any question about the WhatsAppTools")
                     p= __("I can show you all the benefits of the")
-                        strong  WhatsApp Tools
+                        strong  WhatsAppTools
                         span= __(" by sharing my screen with you via")
                         strong  TeamViewer
                         span= __(" or")
