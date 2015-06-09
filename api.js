@@ -138,11 +138,16 @@ function handleLaunch(req,res) {
                 var channelLicense = null;
                 if (license)
                     channelLicense = parseInt(license.dataValues['id']) ? parseInt(license.dataValues['id']) : null;
-                var message = "A new version is available on http://watools.me/";
-                if(typeof bodyContent.clientInfo.version == 'undefined')
+                var message = "There is a bug in this version! A new version is available on http://watools.me/";
+                if(typeof bodyContent.clientInfo == 'undefined')
                     reply.server_message = message;
                 else {
-                    if(bodyContent.clientInfo.version != newestVersion)
+                    if(typeof bodyContent.clientInfo.version != 'undefined')
+                    {
+                        if(bodyContent.clientInfo.version != newestVersion)
+                            reply.server_message = message;
+                    }
+                    else
                         reply.server_message = message;
                 }
 
