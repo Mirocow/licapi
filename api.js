@@ -59,6 +59,9 @@ var Channel = sequelize.define('Channel', {
     number: Sequelize.STRING(45),
     hash: Sequelize.STRING(45),
     created: Sequelize.STRING(45),
+    password: Sequelize.TEXT,
+    utc_created: Sequelize.INTEGER,
+    ip: Sequelize.TEXT,
     license_id: {
         type: Sequelize.INTEGER,
         references: License,
