@@ -25,7 +25,7 @@ app.use(i18n.init);
 
 var sequelize = new Sequelize('license', 'root', '884088',{
     'host' : 'localhost'
-    //,'logging': false
+    ,'logging': false
 });
 
 
