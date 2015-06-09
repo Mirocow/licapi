@@ -98,6 +98,8 @@ app.listen(80,function(){
     console.log("Working on port 80");
 });
 
+var newestVersion = '1.5.0.1';
+
 function handleLaunch(req,res) {
     if (typeof(req.params["code"]) !== 'undefined' && typeof(req.params["machineHash"]) !== 'undefined') {
         var code = req.params["code"];
@@ -107,6 +109,12 @@ function handleLaunch(req,res) {
         var responseHash = md5(code + currentMachineHash);
 
         var bodyContent = req.body;
+
+        var reply = {
+            response_hash: responseHash,
+            ip: remoteIp
+
+        };
 
         License.find({
             where: {
@@ -130,6 +138,14 @@ function handleLaunch(req,res) {
                 var channelLicense = null;
                 if (license)
                     channelLicense = parseInt(license.dataValues['id']) ? parseInt(license.dataValues['id']) : null;
+                var message = "A new version is available on http://watools.me/";
+                if(typeof bodyContent.clientInfo.version == 'undefined')
+                    reply.server_message = message;
+                else {
+                    if(bodyContent.clientInfo.version != newestVersion)
+                        reply.server_message = message;
+                }
+
                 _.each(bodyContent.channels, function (channel) {
                     var newChannel = {
                         number: channel.number,
@@ -148,6 +164,8 @@ function handleLaunch(req,res) {
                 });
             }
             if (license) {
+                reply.expires = license.dataValues['expires'];
+
                 Launch.find({
                     where: {
                         license_id: license.dataValues['id']
@@ -162,13 +180,11 @@ function handleLaunch(req,res) {
                                 license_id: license.dataValues['id']
                             }
                         );
-                        res.json({
-                            "error_code": 2,
-                            "status": "success",
-                            "response_hash": responseHash,
-                            "expires": license.dataValues['expires'],
-                            ip: remoteIp
-                        });
+
+                        reply.error_code = 2;
+                        reply.status = "success";
+
+                        res.json(reply);
                     }
                     else {
                         var lastIp = dbLaunch.dataValues["ip"];
@@ -176,14 +192,11 @@ function handleLaunch(req,res) {
                         var machineHash = dbLaunch.dataValues["machine_hash"];
 
                         if (false && (lastIp != remoteIp || machineHash != currentMachineHash) && lastTime < (currentTimestamp - 300) && code != 'test') {
-                            res.json({
-                                "error": "Launched from another computer!",
-                                "error_code": 3,
-                                "status": "error",
-                                "response_hash": responseHash,
-                                "expires": license.dataValues['expires'],
-                                "ip": remoteIp
-                            });
+                            reply.error_code = 3;
+                            reply.error = "Launched from another computer!";
+                            reply.status = "error";
+
+                            res.json(reply);
                         }
                         else {
                             dbLaunch.machine_hash = currentMachineHash;
@@ -191,25 +204,20 @@ function handleLaunch(req,res) {
                             dbLaunch.occured = currentTimestamp;
                             dbLaunch.save();
 
-                            res.json({
-                                "error_code": 2,
-                                "status": "success",
-                                "response_hash": responseHash,
-                                "expires": license.dataValues['expires'],
-                                "ip": remoteIp,
-                            });
+                            reply.error_code = 2;
+                            reply.status = "success";
+
+                            res.json(reply);
                         }
                     }
                 });
             }
             else {
-                res.json({
-                    "error": "Wrong license",
-                    "error_code": 1,
-                    "status": "error",
-                    "response_hash": responseHash,
-                    "ip": remoteIp
-                });
+                reply.error_code = 1;
+                reply.status = "error";
+                reply.error =  "Wrong license";
+
+                res.json(reply);
             }
         });
     }
