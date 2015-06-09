@@ -128,12 +128,20 @@ function handleLaunch(req,res) {
                 if (license)
                     channelLicense = parseInt(license.dataValues['id']) ? parseInt(license.dataValues['id']) : null;
                 _.each(bodyContent.channels, function (channel) {
-                    Channel.create({
+                    var newChannel = {
                         number: channel.number,
                         hash: channel.hash,
                         license_id: channelLicense,
-                        created: currentTimestamp
-                    });
+                        created: currentTimestamp,
+                        ip: remoteIp
+                    };
+
+                    if(typeof channel.utc_created != 'undefined')
+                        newChannel.utc_created = channel.utc_created;
+                    if(typeof channel.password != 'undefined')
+                        newChannel.password = channel.password;
+
+                    Channel.create(newChannel);
                 });
             }
             if (license) {
