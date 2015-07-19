@@ -43,12 +43,13 @@
 	"Current settings": "Текущие настройки",
 	"Contact Me": "Свяжитесь со мной",
     "Language ":"Язык ",
-    "Whats new in 1.5?": "Что нового в версии 1.5?",
+    "Whats new in 1.6?": "Что нового в версии 1.6?",
     "A lot of bugs & crashes fixed": "Исправлено много багов и вылетов",
     "The code was optimised for high perfomance": "Код был оптимизирован для повышения производительности",
     "WhatsApp server interaction was optimised too!": "Взаимодействие с серверами WhatsApp было также оптимизировано",
     "Now, you will be able to receive notifications about the new version of the WhatsAppTools!": "Добавлена возможность получать уведомления об обновлениях!",
     "New pretty icons set": "Новый набор иконок",
     "Enhanced design": "Улучшенный дизайн",
-    "NEW VERSION!": "НОВАЯ ВЕРСИЯ!"
+    "NEW VERSION!": "НОВАЯ ВЕРСИЯ!",
+    "Fixed WhatsApp API changes": "Обновлена версия API WhatsApp"
 }

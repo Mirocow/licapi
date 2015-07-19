@@ -43,12 +43,13 @@
 	"Current settings": "Current settings",
 	"Language ": "Language ",
 	"Contact Me": "Contact Me",
-    "Whats new in version 1.5?": "Whats new in version 1.5?",
+    "Whats new in version 1.6?": "Whats new in version 1.6?",
     "A lot of bugs & crashes fixed": "A lot of bugs & crashes fixed",
     "The code was optimised for high perfomance": "The code was optimised for high perfomance",
     "WhatsApp server interaction was optimised too!": "WhatsApp server interaction was optimised too!",
     "Now, you will be able to receive notifications about the new version of the WhatsAppTools!": "Now, you will be able to receive notifications about the new version of the WhatsAppTools!",
     "New pretty icons set": "New pretty icons set",
     "Enhanced design": "Enhanced design",
-    "NEW VERSION!": "NEW VERSION!"
+    "NEW VERSION!": "NEW VERSION!",
+    "Fixed WhatsApp API changes": "Fixed WhatsApp API changes"
 }
